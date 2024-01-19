@@ -1,0 +1,87 @@
+<!DOCTYPE html
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+    <script>
+        function myFuction() {
+            var c=document.getElementById("myCanvas");
+            var ctx=c.getContext("2d");
+            ctx.fillStyle="#FFFF00";
+            ctx.fillRect(0,0,150,75);
+        }
+    </script>
+
+    <script>
+        function myFuction1() {
+            var c=document.getElementById("myCanvas");
+            var ctx=c.getContext("2d");
+            ctx.beginPath();
+            ctx.arc(95,50,40,0,2*Math.PI);
+            ctx.stroke();
+        }
+    </script>
+
+    <script>
+        function myFuction2() {
+            var c=document.getElementById("myCanvas");
+            var ctx=c.getContext("2d");
+            ctx.font="30px Arial";
+            ctx.fillStyle="#000000";
+            ctx.fillText("Hello World",10,50);
+        }
+    </script>
+
+    <script>
+        function myFuction3() {
+            var c=document.getElementById("myCanvas");
+            var ctx=c.getContext("2d");
+            
+            // 创建渐变
+            var grd=ctx.createLinearGradient(0,0,200,0);
+            grd.addColorStop(0,"red");
+            grd.addColorStop(1,"white");
+            
+            // 填充渐变
+            ctx.fillStyle=grd;
+            ctx.fillRect(10,10,150,80);
+        }
+    </script>
+
+
+</head>
+<body>
+
+    <canvas id="myCanvas" width="200" height="100"
+        style="border:1px solid #000000;">
+    </canvas>
+
+    <script>
+        var c=document.getElementById("myCanvas");
+        var ctx=c.getContext("2d");
+        ctx.fillStyle="#FFFFFF";
+        ctx.fillRect(0,0,150,75);
+    </script>
+
+    <br><button type="button" onclick="myFuction() & myFuction1()">a</button>
+
+    <br><button type="button" onclick="myFuction2()">b</button>
+
+    <br><button type="button" onclick="myFuction3()">c</button>
+
+    <video width="320" height="240" controls>
+        <source src="movie.mp4" type="video/mp4">
+        <source src="movie.ogg" type="video/ogg">
+        <source src="movie.webm" type="video/webm">
+        <object data="movie.mp4" width="320" height="240">
+            <embed src="movie.swf" width="320" height="240">
+        </object> 
+    </video>
+
+
+</body>
+</html>

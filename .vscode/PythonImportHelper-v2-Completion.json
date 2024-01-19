@@ -1,0 +1,368 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "BeautifulSoup",
+        "importPath": "bs4",
+        "description": "bs4",
+        "isExtraImport": true,
+        "detail": "bs4",
+        "documentation": {}
+    },
+    {
+        "label": "BeautifulSoup",
+        "importPath": "bs4",
+        "description": "bs4",
+        "isExtraImport": true,
+        "detail": "bs4",
+        "documentation": {}
+    },
+    {
+        "label": "urljoin",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "wx",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "wx",
+        "description": "wx",
+        "detail": "wx",
+        "documentation": {}
+    },
+    {
+        "label": "wx.xrc",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "wx.xrc",
+        "description": "wx.xrc",
+        "detail": "wx.xrc",
+        "documentation": {}
+    },
+    {
+        "label": "Spec",
+        "kind": 6,
+        "importPath": "src.spec",
+        "description": "src.spec",
+        "peekOfCode": "class Spec:\n    def __init__(self, path):\n        self.path = path\n        self.spec = self.read_spec()\n    def read_spec(self):\n        with open(self.path, 'r') as f:\n            spec = f.read()\n        return spec",
+        "detail": "src.spec",
+        "documentation": {}
+    },
+    {
+        "label": "get_file_links",
+        "kind": 2,
+        "importPath": "down",
+        "description": "down",
+        "peekOfCode": "def get_file_links(url):\n    \"\"\" 爬取给定URL的网页，提取所有文件链接 \"\"\"\n    file_links = []\n    dir_links = []\n    try:\n        response = requests.get(url)\n        soup = BeautifulSoup(response.text, 'html.parser')\n        for link in soup.find_all('a'):\n            href = link.get('href')\n            if href and '.' in href:  # 检查是否为文件",
+        "detail": "down",
+        "documentation": {}
+    },
+    {
+        "label": "download_file",
+        "kind": 2,
+        "importPath": "down",
+        "description": "down",
+        "peekOfCode": "def download_file(url, folder_path):\n    \"\"\" 下载单个文件到指定文件夹 \"\"\"\n    # try:\n    #     response = requests.get(url)\n    #     if response.status_code == 200:\n    #         file_name = url.split('/')[-1]\n    #         file_path = os.path.join(folder_path, file_name)\n    #         with open(file_path, 'wb') as file:\n    #             file.write(response.content)\n    #         print(f\"Downloaded {file_name} to {folder_path}\")",
+        "detail": "down",
+        "documentation": {}
+    },
+    {
+        "label": "loggerInit",
+        "kind": 2,
+        "importPath": "down",
+        "description": "down",
+        "peekOfCode": "def loggerInit():\n    # 创建日志器logger并将其日志级别设置为DEBUG\n    logger = logging.getLogger(\"downloader\")\n    logger.setLevel(logging.DEBUG)\n    # 创建一个流处理器handler并将其日志级别设置为DEBUG\n    handler = logging.StreamHandler(sys.stdout)\n    handler.setLevel(logging.DEBUG)\n    # 创建一个格式化器formatter并将其添加到处理器handler中\n    formatter = logging.Formatter(\"%(asctime)s - %(name)s - %(levelname)s - %(message)s\")\n    handler.setFormatter(formatter)",
+        "detail": "down",
+        "documentation": {}
+    },
+    {
+        "label": "download_files_from_url",
+        "kind": 2,
+        "importPath": "down",
+        "description": "down",
+        "peekOfCode": "def download_files_from_url(url, folder_path):\n    \"\"\" 从URL下载文件和目录，使用多线程加速下载 \"\"\"\n    file_links, dir_links = get_file_links(url)\n    # 创建文件夹（如果不存在）\n    if not os.path.exists(folder_path):\n        os.makedirs(folder_path)\n    threads = []\n    # 使用线程下载当前目录中的文件\n    for file_link in file_links:\n        thread = threading.Thread(target=download_file, args=(file_link, folder_path))",
+        "detail": "down",
+        "documentation": {}
+    },
+    {
+        "label": "MyFrame",
+        "kind": 6,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "class MyFrame1 (threading.Thread,wx.Frame):\n\tmusicData  = ['822107239']\n\tuser_agent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36'\n\tdef __init__( self, threadID, name ,counter):\n\t\twx.Frame.__init__ ( self, None, id = wx.ID_ANY, title = u\"网易云音乐歌曲批量下载\", pos = wx.DefaultPosition, size = wx.Size( 450,409 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )\n\t\tself.SetSizeHints( wx.DefaultSize, wx.DefaultSize )\n\t\tself.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )\n\t\tbSizer4 = wx.BoxSizer( wx.VERTICAL )\n\t\tbSizer5 = wx.BoxSizer( wx.HORIZONTAL )\n\t\tself.m_staticText3 = wx.StaticText( self, wx.ID_ANY, u\"Url\", wx.DefaultPosition, wx.DefaultSize, 0 )",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "def main():\n\tapp = wx.App(False) \n\tframe = MyFrame1(1, \"Thread-1\", 1)\n\tframe.Show(True) \n\t#start the applications \n\tapp.MainLoop()  \nif __name__ == '__main__':\n\tmain()",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\tuser_agent",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\tuser_agent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36'\n\tdef __init__( self, threadID, name ,counter):\n\t\twx.Frame.__init__ ( self, None, id = wx.ID_ANY, title = u\"网易云音乐歌曲批量下载\", pos = wx.DefaultPosition, size = wx.Size( 450,409 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )\n\t\tself.SetSizeHints( wx.DefaultSize, wx.DefaultSize )\n\t\tself.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )\n\t\tbSizer4 = wx.BoxSizer( wx.VERTICAL )\n\t\tbSizer5 = wx.BoxSizer( wx.HORIZONTAL )\n\t\tself.m_staticText3 = wx.StaticText( self, wx.ID_ANY, u\"Url\", wx.DefaultPosition, wx.DefaultSize, 0 )\n\t\tself.m_staticText3.Wrap( -1 )\n\t\tself.m_staticText3.SetFont( wx.Font( 13, wx.FONTFAMILY_DECORATIVE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tbSizer4",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\tbSizer4 = wx.BoxSizer( wx.VERTICAL )\n\t\tbSizer5 = wx.BoxSizer( wx.HORIZONTAL )\n\t\tself.m_staticText3 = wx.StaticText( self, wx.ID_ANY, u\"Url\", wx.DefaultPosition, wx.DefaultSize, 0 )\n\t\tself.m_staticText3.Wrap( -1 )\n\t\tself.m_staticText3.SetFont( wx.Font( 13, wx.FONTFAMILY_DECORATIVE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )\n\t\tbSizer5.Add( self.m_staticText3, 0, wx.ALL, 5 )\n\t\tself.url_text = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 300,-1 ), 0 )\n\t\tbSizer5.Add( self.url_text, 0, wx.ALL, 5 )\n\t\tself.down_button = wx.Button( self, wx.ID_ANY, u\"下载歌单\", wx.DefaultPosition, wx.DefaultSize, 0 )\n\t\tbSizer5.Add( self.down_button, 0, wx.ALL, 5 )",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tbSizer5",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\tbSizer5 = wx.BoxSizer( wx.HORIZONTAL )\n\t\tself.m_staticText3 = wx.StaticText( self, wx.ID_ANY, u\"Url\", wx.DefaultPosition, wx.DefaultSize, 0 )\n\t\tself.m_staticText3.Wrap( -1 )\n\t\tself.m_staticText3.SetFont( wx.Font( 13, wx.FONTFAMILY_DECORATIVE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )\n\t\tbSizer5.Add( self.m_staticText3, 0, wx.ALL, 5 )\n\t\tself.url_text = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 300,-1 ), 0 )\n\t\tbSizer5.Add( self.url_text, 0, wx.ALL, 5 )\n\t\tself.down_button = wx.Button( self, wx.ID_ANY, u\"下载歌单\", wx.DefaultPosition, wx.DefaultSize, 0 )\n\t\tbSizer5.Add( self.down_button, 0, wx.ALL, 5 )\n\t\tbSizer4.Add( bSizer5, 1, wx.EXPAND, 4 )",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tself.m_staticText3",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\tself.m_staticText3 = wx.StaticText( self, wx.ID_ANY, u\"Url\", wx.DefaultPosition, wx.DefaultSize, 0 )\n\t\tself.m_staticText3.Wrap( -1 )\n\t\tself.m_staticText3.SetFont( wx.Font( 13, wx.FONTFAMILY_DECORATIVE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )\n\t\tbSizer5.Add( self.m_staticText3, 0, wx.ALL, 5 )\n\t\tself.url_text = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 300,-1 ), 0 )\n\t\tbSizer5.Add( self.url_text, 0, wx.ALL, 5 )\n\t\tself.down_button = wx.Button( self, wx.ID_ANY, u\"下载歌单\", wx.DefaultPosition, wx.DefaultSize, 0 )\n\t\tbSizer5.Add( self.down_button, 0, wx.ALL, 5 )\n\t\tbSizer4.Add( bSizer5, 1, wx.EXPAND, 4 )\n\t\tself.output_text = wx.TextCtrl( self, wx.ID_ANY, u\" \\",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tself.url_text",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\tself.url_text = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 300,-1 ), 0 )\n\t\tbSizer5.Add( self.url_text, 0, wx.ALL, 5 )\n\t\tself.down_button = wx.Button( self, wx.ID_ANY, u\"下载歌单\", wx.DefaultPosition, wx.DefaultSize, 0 )\n\t\tbSizer5.Add( self.down_button, 0, wx.ALL, 5 )\n\t\tbSizer4.Add( bSizer5, 1, wx.EXPAND, 4 )\n\t\tself.output_text = wx.TextCtrl( self, wx.ID_ANY, u\" \\\n网易云音乐歌单下载，网页中复制URL\\n \\\nhttps://music.163.com/#/playlist?id=xxxxxxxxxx\\n \\\n保存目录：D:\\\\music\\n \\\n线程只能执行一次，下载后如需重新下载其他需要重启\\n \\",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tself.down_button",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\tself.down_button = wx.Button( self, wx.ID_ANY, u\"下载歌单\", wx.DefaultPosition, wx.DefaultSize, 0 )\n\t\tbSizer5.Add( self.down_button, 0, wx.ALL, 5 )\n\t\tbSizer4.Add( bSizer5, 1, wx.EXPAND, 4 )\n\t\tself.output_text = wx.TextCtrl( self, wx.ID_ANY, u\" \\\n网易云音乐歌单下载，网页中复制URL\\n \\\nhttps://music.163.com/#/playlist?id=xxxxxxxxxx\\n \\\n保存目录：D:\\\\music\\n \\\n线程只能执行一次，下载后如需重新下载其他需要重启\\n \\\n可多开下载同个歌单或者不同歌单\\n \\\n-------------------------------------------------------\\n \\",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tself.output_text",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\tself.output_text = wx.TextCtrl( self, wx.ID_ANY, u\" \\\n网易云音乐歌单下载，网页中复制URL\\n \\\nhttps://music.163.com/#/playlist?id=xxxxxxxxxx\\n \\\n保存目录：D:\\\\music\\n \\\n线程只能执行一次，下载后如需重新下载其他需要重启\\n \\\n可多开下载同个歌单或者不同歌单\\n \\\n-------------------------------------------------------\\n \\\n支持歌单和排名榜 - ccphamy\\n \\\n-------------------------------------------------------\\n\" \\\n\t\t\t, wx.DefaultPosition, wx.Size( 450,320 ), wx.TE_MULTILINE )",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tself.threadID",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\tself.threadID = threadID\n\t\tself.name = name\n\t\tself.counter = counter\n\t\tif not os.path.exists(\"/Users/zhangzhiyu/MyProjects/downSong\"):\n\t\t\tos.mkdir('/Users/zhangzhiyu/MyProjects/downSong')\n\tdef __del__( self ):\n\t\tpass\n\tdef run(self):\n\t\tself.output_text.AppendText(u\"歌曲获取成功,任务线程开启///\\n\")\n\t\tself.get(self.musicData)",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tself.name",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\tself.name = name\n\t\tself.counter = counter\n\t\tif not os.path.exists(\"/Users/zhangzhiyu/MyProjects/downSong\"):\n\t\t\tos.mkdir('/Users/zhangzhiyu/MyProjects/downSong')\n\tdef __del__( self ):\n\t\tpass\n\tdef run(self):\n\t\tself.output_text.AppendText(u\"歌曲获取成功,任务线程开启///\\n\")\n\t\tself.get(self.musicData)\n\tdef main_button_click( self, event ):",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tself.counter",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\tself.counter = counter\n\t\tif not os.path.exists(\"/Users/zhangzhiyu/MyProjects/downSong\"):\n\t\t\tos.mkdir('/Users/zhangzhiyu/MyProjects/downSong')\n\tdef __del__( self ):\n\t\tpass\n\tdef run(self):\n\t\tself.output_text.AppendText(u\"歌曲获取成功,任务线程开启///\\n\")\n\t\tself.get(self.musicData)\n\tdef main_button_click( self, event ):\n\t\tself.musicData = []",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tself.musicData",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\tself.musicData = []\n\t\tself.musicData = self.getMusicData(self.url_text.GetValue().replace(\"#/\",\"\"))\n\t\tprint(self.musicData)\n\t\tif len(self.musicData) >1:\n\t\t\tself.start()\n\tdef get(self,values):\n\t\tprint(len(values))\n\t\tdownNum    = 0\n\t\trstr = r\"[\\/\\\\\\:\\*\\?\\\"\\<\\>\\|]\"  # '/ \\ : * ? \" < > |'\n\t\tfor x in values:",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tself.musicData",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\tself.musicData = self.getMusicData(self.url_text.GetValue().replace(\"#/\",\"\"))\n\t\tprint(self.musicData)\n\t\tif len(self.musicData) >1:\n\t\t\tself.start()\n\tdef get(self,values):\n\t\tprint(len(values))\n\t\tdownNum    = 0\n\t\trstr = r\"[\\/\\\\\\:\\*\\?\\\"\\<\\>\\|]\"  # '/ \\ : * ? \" < > |'\n\t\tfor x in values:\n\t\t\tx['name'] = re.sub(rstr, \"_\", x['name'])",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\trstr",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\trstr = r\"[\\/\\\\\\:\\*\\?\\\"\\<\\>\\|]\"  # '/ \\ : * ? \" < > |'\n\t\tfor x in values:\n\t\t\tx['name'] = re.sub(rstr, \"_\", x['name'])\n\t\t\tif not os.path.exists(\"d:/music/\" + x['name'] + '.mp3'):\n\t\t\t\tself.output_text.AppendText('***** ' + x['name'] + '.mp3 ***** Downloading...\\n')\n\t\t\t\turl = 'http://music.163.com/song/media/outer/url?id=' + x['id'] + '.mp3'\n\t\t\t\ttry: \n\t\t\t\t\t# urllib.request.urlretrieve(url,'d:/music/' + x['name'] + '.mp3')\n\t\t\t\t\tself.saveFile(url,'d:/music/' + x['name'] + '.mp3')\n\t\t\t\t\tdownNum = downNum + 1",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tx['name']",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\t\tx['name'] = re.sub(rstr, \"_\", x['name'])\n\t\t\tif not os.path.exists(\"d:/music/\" + x['name'] + '.mp3'):\n\t\t\t\tself.output_text.AppendText('***** ' + x['name'] + '.mp3 ***** Downloading...\\n')\n\t\t\t\turl = 'http://music.163.com/song/media/outer/url?id=' + x['id'] + '.mp3'\n\t\t\t\ttry: \n\t\t\t\t\t# urllib.request.urlretrieve(url,'d:/music/' + x['name'] + '.mp3')\n\t\t\t\t\tself.saveFile(url,'d:/music/' + x['name'] + '.mp3')\n\t\t\t\t\tdownNum = downNum + 1\n\t\t\t\texcept:\n\t\t\t\t\tx = x - 1",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\t\turl",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\t\t\turl = 'http://music.163.com/song/media/outer/url?id=' + x['id'] + '.mp3'\n\t\t\t\ttry: \n\t\t\t\t\t# urllib.request.urlretrieve(url,'d:/music/' + x['name'] + '.mp3')\n\t\t\t\t\tself.saveFile(url,'d:/music/' + x['name'] + '.mp3')\n\t\t\t\t\tdownNum = downNum + 1\n\t\t\t\texcept:\n\t\t\t\t\tx = x - 1\n\t\t\t\t\tself.output_text.AppendText(u'Download wrong~\\n')\n\t\tself.output_text.AppendText('Download complete ' + str(downNum) + ' files !\\n')\n\t\tpass",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\t\t\tdownNum",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\t\t\t\tdownNum = downNum + 1\n\t\t\t\texcept:\n\t\t\t\t\tx = x - 1\n\t\t\t\t\tself.output_text.AppendText(u'Download wrong~\\n')\n\t\tself.output_text.AppendText('Download complete ' + str(downNum) + ' files !\\n')\n\t\tpass\n\tdef getMusicData(self,url):\n\t\theaders    = {'User-Agent':self.user_agent}\n\t\twebData    = requests.get(url,headers=headers).text\n\t\tsoup       = BeautifulSoup(webData,'lxml')",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\t\t\tx",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\t\t\t\tx = x - 1\n\t\t\t\t\tself.output_text.AppendText(u'Download wrong~\\n')\n\t\tself.output_text.AppendText('Download complete ' + str(downNum) + ' files !\\n')\n\t\tpass\n\tdef getMusicData(self,url):\n\t\theaders    = {'User-Agent':self.user_agent}\n\t\twebData    = requests.get(url,headers=headers).text\n\t\tsoup       = BeautifulSoup(webData,'lxml')\n\t\tfind_list  = soup.find('ul',class_=\"f-hide\").find_all('a')\n\t\ttempArr = []",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\ttempArr",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\ttempArr = []\n\t\tfor a in find_list:\n\t\t\tmusic_id  = a['href'].replace('/song?id=','')\n\t\t\tmusic_name = a.text\n\t\t\ttempArr.append({'id':music_id,'name':music_name})\n\t\treturn tempArr\n\tdef saveFile(self,url,path):\n\t\theaders = {'User-Agent':self.user_agent,'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8','Upgrade-Insecure-Requests':'1'}\n\t\tresponse = requests.get(url,headers=headers)\n\t\twith open(path, 'wb') as f:",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tmusic_name",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\t\tmusic_name = a.text\n\t\t\ttempArr.append({'id':music_id,'name':music_name})\n\t\treturn tempArr\n\tdef saveFile(self,url,path):\n\t\theaders = {'User-Agent':self.user_agent,'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8','Upgrade-Insecure-Requests':'1'}\n\t\tresponse = requests.get(url,headers=headers)\n\t\twith open(path, 'wb') as f:\n\t\t\tf.write(response.content)\n\t\t\tf.flush()\ndef main():",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\theaders",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\theaders = {'User-Agent':self.user_agent,'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8','Upgrade-Insecure-Requests':'1'}\n\t\tresponse = requests.get(url,headers=headers)\n\t\twith open(path, 'wb') as f:\n\t\t\tf.write(response.content)\n\t\t\tf.flush()\ndef main():\n\tapp = wx.App(False) \n\tframe = MyFrame1(1, \"Thread-1\", 1)\n\tframe.Show(True) \n\t#start the applications ",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tresponse",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\t\tresponse = requests.get(url,headers=headers)\n\t\twith open(path, 'wb') as f:\n\t\t\tf.write(response.content)\n\t\t\tf.flush()\ndef main():\n\tapp = wx.App(False) \n\tframe = MyFrame1(1, \"Thread-1\", 1)\n\tframe.Show(True) \n\t#start the applications \n\tapp.MainLoop()  ",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\tapp",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\tapp = wx.App(False) \n\tframe = MyFrame1(1, \"Thread-1\", 1)\n\tframe.Show(True) \n\t#start the applications \n\tapp.MainLoop()  \nif __name__ == '__main__':\n\tmain()",
+        "detail": "downSong",
+        "documentation": {}
+    },
+    {
+        "label": "\tframe",
+        "kind": 5,
+        "importPath": "downSong",
+        "description": "downSong",
+        "peekOfCode": "\tframe = MyFrame1(1, \"Thread-1\", 1)\n\tframe.Show(True) \n\t#start the applications \n\tapp.MainLoop()  \nif __name__ == '__main__':\n\tmain()",
+        "detail": "downSong",
+        "documentation": {}
+    }
+]
